@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+</head>
+<body class="h-100 text-center">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <content>
+        <div class="h2 m-5">Sistem Informasi Dokter</div>
+        <div class="">
+            <div class="card">
+                <div class="card-header bg-dark text-light">Daftar Dokter</div>
+                <div class="card-body">
+                        <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">NIP</th>
+                                        <th scope="col">NIK</th>
+                                        <th scope="col">Jenis Kelamin</th>
+                                        <th scope="col">Spesialisasi</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="dokter : ${listDokter}">
+                                        <th scope="row" th:text="${dokter.idDokter}"></th>
+                                        <th scope="row" th:text="${dokter.nama}"></th>
+                                        <th scope="row" th:text="${dokter.nipDokter}"></th>
+                                        <th scope="row" th:text="${dokter.nikDokter}"></th>
+                                        <div th:if=${dokter.jenisKelamin}>
+                                            <th scope="row" th:text="Laki-laki"></th>
+                                        </div>
+                                        <div th:unless=${dokter.jenisKelamin}>
+                                            <th scope="row" th:text="Perempuan"></th>
+                                        </div>
+                                        
+                                        <th>
+                                            <div th:each="spesialisasi : ${dokter.listSpesialisasi}" scope="row" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                        </th>
+                                        <th scope="row" class="btn-group">
+                                            <button class="btn btn-primary rounded mr-2">
+                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">tambah jadwal</a>
+                                            </button>
+                                            <button class="btn btn-dark rounded mr-2">
+                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">Ubah</a>
+                                            </button>
+                                            <button class="btn btn-danger rounded">
+                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">hapus</a>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    <div>
+                        <button class="btn btn-dark"><a style="color:white; text-decoration: none;" th:href="@{/dokter/add}">Tambah Dokter</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content> 
+</body>
+</html>
