@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" lang="en" xmlns:th="http://thymeLeaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Change Data Dokter</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+</head>
+<body class="h-100">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <div class="h2 mt-3 mb-3">Ubah Dokter</div>
+        <div>
+            <form th:action="@{/dokter/update/{idDokter}(idDokter=${dokter.idDokter})}" th:object="${dokter}" method="POST">
+                <div class="form-group row">
+                    <label for="inputNama" class="col-md-2 col-form-label">Nama</label>
+                    <div class="col-md-10">
+                        <input th:value="${dokter.nama}" class="form-control border rounded-pill" type="text" id="inputNama" name="nama" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNik" class="col-md-2 col-form-label">NIK</label>
+                    <div class="col-md-10">
+                        <input th:value="${dokter.nikDokter}" class="form-control border rounded-pill" type="text" id="inputNik" name="nikDokter">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputTanggalLahir" class="col-md-2 col-form-label">Tanggal Lahir</label>
+                    <div class="col-md-10">
+                        <input th:value="${dokter.tanggalLahir}" class="form-control border rounded-pill" type="date" id="inputTanggalLahir" name="tanggalLahir" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputTempatLahir" class="col-md-2 col-form-label">Tempat Lahir</label>
+                    <div class="col-md-10">
+                        <input class="form-control border rounded-pill" th:value="${dokter.tempatLahir}" type="text" id="inputtempatLahir" name="tempatLahir">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputJk" class="col-md-2 col-form-label">Jenis Kelamin</label>
+                    <div class="col-md-10">
+                        <select th:value="${dokter.jenisKelamin}" name="jenisKelamin" class="form-control rounded-pill">
+                            <div th:if="${dokter.jenisKelamin}">
+                                    <option th:value="True" selected>Laki-Laki</option>
+                                    <option th:value="False">Perempuan</option>
+                            </div>
+                            <div th:unless="${dokter.jenisKelamin}">
+                                    <option th:value="True">Laki-Laki</option>
+                                    <option th:value="False" selected>Perempuan</option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

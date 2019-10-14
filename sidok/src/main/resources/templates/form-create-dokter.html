@@ -48,8 +48,9 @@
                 <div class="form-group row" th:each="spesialisasi, rowStat : *{listSpesialisasi}">
                     <label for="inputSpesialisasi" class="col-md-2 col-form-label">Spesialisasi</label>
                     <select name="idSpesialisasi" class="form-control col-md-8 rounded-pill" th:field="*{listSpesialisasi[__${rowStat.index}__].idSpesialisasi}">
-                        <div th:each="list : ${spesialisasiList}">
-                        <option th:value="${list.idSpesialisasi}" th:text="${list.namaSpesialisasi}"></option>
+                        <div>
+                            <option th:value="null">choose....</option>
+                            <option th:each="list : ${spesialisasiList}" th:value="${list.idSpesialisasi}" th:text="${list.namaSpesialisasi}"></option>
                         </div>
                     </select>
                     <div class="col-md-2">

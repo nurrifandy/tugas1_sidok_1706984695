@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javassist.expr.NewArray;
 import tugas.individu.sidok.model.DokterModel;
 import tugas.individu.sidok.model.SpesialisasiModel;
+import tugas.individu.sidok.repository.DokterDb;
 import tugas.individu.sidok.service.DokterService;
 import tugas.individu.sidok.service.SpesialisasiService;
 
@@ -34,6 +35,7 @@ public class DokterController{
     @Autowired
     private SpesialisasiService spesialisasiService;
 
+    //Beranda Dokter
     @GetMapping(value = "/")
     public String home(Model model){
         List<DokterModel> listDokter = null;
@@ -42,6 +44,7 @@ public class DokterController{
         return "beranda";
     }
 
+    //Method untuk melakukan add dokter
     @GetMapping(value = "/dokter/add")
     public String addDokterFormPage(Model model){
         DokterModel newDokter = new DokterModel();
@@ -87,6 +90,7 @@ public class DokterController{
         }
         return string.toString();
     }
+
     public String makeNip(Date date, Boolean jenisKelamin){
         String year = Integer.toString(date.getYear() + 1900 + 5);
         DateFormat formatDate = new SimpleDateFormat("ddmmyy");
@@ -113,30 +117,49 @@ public class DokterController{
         saveDokter.setTanggalLahir(tmpTgl);
         List<DokterModel> setDokter = new ArrayList<DokterModel>();
         setDokter.add(saveDokter);
-        saveDokter.setListSpesialisasi(dokter.getListSpesialisasi());
-        for(SpesialisasiModel spesial  : dokter.getListSpesialisasi()){
-            spesial.setListDokter(setDokter);
+        if(dokter.getListSpesialisasi().get(0).getIdSpesialisasi() != null){
+            saveDokter.setListSpesialisasi(dokter.getListSpesialisasi());
+            for(SpesialisasiModel spesial  : dokter.getListSpesialisasi()){
+                spesial.setListDokter(setDokter);
+            }
         }
         dokterService.addDokter(saveDokter);
+        model.addAttribute("dokter", saveDokter);
         return "create-dokter-sukses";
     }
 
+    //menampilkan detail dokter
     @GetMapping(value = "/dokter")
     public String viewDokterByNik(
         @RequestParam (value = "nikDokter") String nikDokter,
         Model model
     ){
-        return "viewDokter";
+        List<DokterModel> dokter = dokterService.findDokterByNik(nikDokter);
+        model.addAttribute("dokter", dokter);
+        return "display-detail-dokter";
     }
 
-    @PostMapping(value = "/dokter/update/{id}")
-    public String changeDokter(@PathVariable BigInteger id, Model model){
-        return "changeDokter";
+    //melakukan update terhadap data dokter
+    @GetMapping(value="/dokter/update/{idDokter}")
+    public String changeDokterDataForm(@PathVariable Long idDokter, Model model){
+        DokterModel dokter = dokterService.findDokterById(idDokter).orElse(null);
+        model.addAttribute("dokter", dokter);
+        return "form-update-dokter";
     }
 
-    @PostMapping(value = "/dokter/delete/{id}")
-    public String deleteDokter(@PathVariable BigInteger id, Model model){
-        return "deleteDokter";
+    @PostMapping(value = "/dokter/update/{idDokter}")
+    public String changeDokter(@PathVariable Long idDokter, @ModelAttribute DokterModel dokter, Model model){
+        DokterModel newDataDokter = dokterService.updateDataDokter(dokter);
+        model.addAttribute("dokter", newDataDokter);
+        return "redirect:/dokter?nikDokter=" + newDataDokter.getNikDokter();
+    }
+
+    @GetMapping(value = "/dokter/delete/{idDokter}")
+    public String deleteDokter(@PathVariable Long idDokter, Model model){
+        DokterModel dokter = dokterService.findDokterById(idDokter).orElse(null);
+        dokterService.deleteDokter(dokter);
+        model.addAttribute("dokter", dokter);
+        return "delete-sukses";
     }
 
 }

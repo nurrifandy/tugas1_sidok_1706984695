@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail Dokter</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <content class="p-3 d-flex justify-content-center">
+        <div class="card" style="width: 20rem;">
+            <div class="card-header h4">Detail Dokter</div>
+            <div class="card-body" th:each="dokter:${dokter}">
+                <div th:text="'Nama : ' + ${dokter.nama}"></div>
+                <div th:text="'NIP : ' + ${dokter.nipDokter}"></div>
+                <div th:text="'NIK : ' + ${dokter.nikDokter}"></div>
+                <div th:text="'Tempat Lahir : ' + ${dokter.tempatLahir}"></div>
+                <div th:if=${dokter.jenisKelamin}>
+                    <div th:text="'Jenis Kelamin : Laki-laki'"></div>
+                <div th:unless=${dokter.jenisKelamin}>
+                    <div th:text="'Jenis Kelamin : Perempuan'"></div>
+                </div>
+                <div th:text="'Spesialisasi '">
+                </div>
+                <ul>
+                    <li th:each="list : ${dokter.listSpesialisasi}" th:text="${list.namaSpesialisasi}"></li>
+                </ul>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-dark m-1"><a th:href="@{#}" style="text-decoration: none;color: white;">Ubah</a></button>
+                    <button class="btn btn-danger m-1"><a th:href="@{#}" style="text-decoration: none;color: white">hapus</a></button>
+                </div>
+            </div>
+        </div>
+    </content>
+</body>
+</html>

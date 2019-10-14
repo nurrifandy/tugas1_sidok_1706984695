@@ -11,7 +11,7 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <content>
         <div class="h2 m-5">Sistem Informasi Dokter</div>
-        <div class="">
+        <div class="container">
             <div class="card">
                 <div class="card-header bg-dark text-light">Daftar Dokter</div>
                 <div class="card-body">
@@ -30,7 +30,8 @@
                                 <tbody>
                                     <tr th:each="dokter : ${listDokter}">
                                         <th scope="row" th:text="${dokter.idDokter}"></th>
-                                        <th scope="row" th:text="${dokter.nama}"></th>
+                                        <th scope="row">
+                                            <a th:href="@{/dokter} + '?nikDokter=' + ${dokter.nikDokter}" th:text="${dokter.nama}"></a></th>
                                         <th scope="row" th:text="${dokter.nipDokter}"></th>
                                         <th scope="row" th:text="${dokter.nikDokter}"></th>
                                         <div th:if=${dokter.jenisKelamin}>
@@ -39,19 +40,21 @@
                                         <div th:unless=${dokter.jenisKelamin}>
                                             <th scope="row" th:text="Perempuan"></th>
                                         </div>
-                                        
                                         <th>
-                                            <div th:each="spesialisasi : ${dokter.listSpesialisasi}" scope="row" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                            <div th:if="${dokter.listSpesialisasi} != null" th:each="spesialisasi : ${dokter.listSpesialisasi}">
+                                                <div scope="row" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                            </div>
+                                            <div th:if="${#lists.isEmpty(dokter.listSpesialisasi)}">-</div>
                                         </th>
                                         <th scope="row" class="btn-group">
                                             <button class="btn btn-primary rounded mr-2">
                                                 <a th:href="@{#}" style="text-decoration: none;" class="text-light">tambah jadwal</a>
                                             </button>
                                             <button class="btn btn-dark rounded mr-2">
-                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">Ubah</a>
+                                                <a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">ubah</a>
                                             </button>
                                             <button class="btn btn-danger rounded">
-                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">hapus</a>
+                                                <a th:href="@{/dokter/delete/} + ${dokter.idDokter}" style="text-decoration: none;" class="text-light">hapus</a>
                                             </button>
                                         </th>
                                     </tr>

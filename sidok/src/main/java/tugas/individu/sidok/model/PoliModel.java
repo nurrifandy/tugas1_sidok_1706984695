@@ -3,8 +3,10 @@ package tugas.individu.sidok.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,9 +36,10 @@ public class PoliModel implements Serializable{
     private String lokasi;
 
     //
-    @ManyToMany(mappedBy = "listPoli")
+    @ManyToMany(mappedBy = "listPoli", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<DokterModel> listDokter;
 
+    
     //getter setter idPoli
     public Long getIdPoli(){
         return this.idPoli;
