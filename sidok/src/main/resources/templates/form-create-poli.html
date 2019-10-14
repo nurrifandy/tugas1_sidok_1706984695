@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create New Poli</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div>
+        <div class="text-center h2 m-3">Tambah Poli</div>
+        <div class="d-flex justify-content-center row">
+            <form th:action="@{/poli/tambah}" th:object="${poli}" method="POST">
+                <div class="form-group row">
+                    <label for="inputNama" class="col-md-2 col-form-label">Nama</label>
+                    <div class="col-md-10">
+                        <input th:field="${poli.namaPoli}" class="form-control-plaintext border rounded-pill" type="text" id="inputNama" name="namaPoli" placeholder=" example : Nur Rifandy ">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputLokasi" class="col-md-2 col-form-label">Lokasi</label>
+                    <div class="col-md-10">
+                        <input th:field="${poli.lokasi}" class="form-control-plaintext border rounded-pill" type="text" id="inputLokasi" name="lokasi" placeholder=" example : Jakarta ">
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

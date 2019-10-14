@@ -19,4 +19,9 @@ public class PoliServiceImpl implements PoliService{
     public List<PoliModel> getListPoli(){
         return poliDb.findAll();
     }
+
+    @Override
+    public void addPoli(PoliModel poli){
+        poliDb.save(poli);
+    }
 }
