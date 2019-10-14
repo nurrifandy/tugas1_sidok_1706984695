@@ -45,7 +45,7 @@ public class DokterController{
     }
 
     //Method untuk melakukan add dokter
-    @GetMapping(value = "/dokter/add")
+    @GetMapping(value = "/dokter/tambah")
     public String addDokterFormPage(Model model){
         DokterModel newDokter = new DokterModel();
 
@@ -61,7 +61,7 @@ public class DokterController{
         return "form-create-dokter";
     }
 
-    @PostMapping(value = "/dokter/add", params = {"addSpesialisasi"})
+    @PostMapping(value = "/dokter/tambah", params = {"addSpesialisasi"})
     public String addRow(@ModelAttribute DokterModel dokter, Model model){
         if(dokter.getListSpesialisasi() == null){
             dokter.setListSpesialisasi(new ArrayList<SpesialisasiModel>());
@@ -103,7 +103,7 @@ public class DokterController{
         return finalNip;
     }
 
-    @PostMapping(value = "/dokter/add", params = "save")
+    @PostMapping(value = "/dokter/tambah", params = "save")
     public String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model){
         DokterModel saveDokter = new DokterModel();
         saveDokter.setNama(dokter.getNama());

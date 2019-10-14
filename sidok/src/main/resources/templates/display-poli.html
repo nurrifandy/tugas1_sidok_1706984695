@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeLeaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Display Poli</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="text-center">
+        <div class="h2 m-3">Sistem Informasi Dokter</div>
+        <div class="row d-flex justify-content-center">
+            <div></div>
+            <div class="card">
+                <div class="card-header bg-dark text-light">Daftar Poli</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="row">No</th>
+                                <th scope="row">Nama</th>
+                                <th scope="row">Lokasi</th>
+                                <th scope="row">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="poli : ${listPoli}">
+                                <th scope="row" th:text="${poli.idPoli}"></th>
+                                <th scope="row" th:text="${poli.namaPoli}"></th>
+                                <th scope="row" th:text="${poli.lokasi}"></th>
+                                <th scope="row"class="button-group">
+                                    <button class="btn btn-dark">
+                                        <a th:href="@{#}" style="text-decoration: none; color: white;">ubah</a>
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        <a th:href="@{#}" style="text-decoration: none; color: white;">hapus</a>
+                                    </button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <button class="btn btn-dark"><a style="color:white; text-decoration: none;" th:href="@{/poli/tambah}">Tambah Poli</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
