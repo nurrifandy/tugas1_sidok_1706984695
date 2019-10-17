@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header bg-dark text-light">Daftar Dokter</div>
                 <div class="card-body">
-                        <table class="table">
+                        <table class="table table-responsive">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -48,7 +48,7 @@
                                         </th>
                                         <th scope="row" class="btn-group">
                                             <button class="btn btn-primary rounded mr-2">
-                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">tambah jadwal</a>
+                                                <a th:href="@{/jadwal/tambah/{nipDokter} (nipDokter = ${dokter.nipDokter})}" style="text-decoration: none;" class="text-light">tambah jadwal</a>
                                             </button>
                                             <button class="btn btn-dark rounded mr-2">
                                                 <a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">ubah</a>

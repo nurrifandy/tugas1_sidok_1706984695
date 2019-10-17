@@ -41,10 +41,6 @@ public class PoliController{
         return "create-poli-success";
     }
 
-    @PostMapping(value = "/jadwal/tambah/{nipDokter}")
-    public String addJadwal(Model model){
-        return "addJadwal";
-    }
 
     @GetMapping(value = "/poli/dokter/{idPoli}")
     public String viewDokterPoli(Model model){

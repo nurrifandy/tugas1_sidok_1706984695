@@ -12,7 +12,7 @@
     <content class="p-3 d-flex justify-content-center">
         <div class="card" style="width: 20rem;">
             <div class="card-header h4">Detail Dokter</div>
-            <div class="card-body" th:each="dokter:${dokter}">
+            <div class="card-body">
                 <div th:text="'Nama : ' + ${dokter.nama}"></div>
                 <div th:text="'NIP : ' + ${dokter.nipDokter}"></div>
                 <div th:text="'NIK : ' + ${dokter.nikDokter}"></div>

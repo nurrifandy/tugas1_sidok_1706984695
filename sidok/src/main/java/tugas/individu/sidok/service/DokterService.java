@@ -13,7 +13,9 @@ public interface DokterService{
 
     Optional<DokterModel> findDokterById(Long idDokter);
 
-    List<DokterModel> findDokterByNik(String nikDokter);
+    Optional<DokterModel> getDokterByNik(String nikDokter);
+
+    Optional<DokterModel> getDokterByNip(String nipDokter);
 
     DokterModel updateDataDokter(DokterModel dokter);
 

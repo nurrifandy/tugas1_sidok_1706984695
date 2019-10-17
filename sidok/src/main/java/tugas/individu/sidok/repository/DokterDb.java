@@ -11,5 +11,6 @@ import tugas.individu.sidok.model.DokterModel;
 @Repository
 public interface DokterDb extends JpaRepository<DokterModel, Long>{
     Optional<DokterModel> findById(Long id);
-    List<DokterModel> findByNikDokter(String nikDokter);
+    Optional<DokterModel> findByNikDokter(String nikDokter);
+    Optional<DokterModel> findByNipDokter(String nipDokter);
 }

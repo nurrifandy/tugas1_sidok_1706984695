@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,8 +37,8 @@ public class PoliModel implements Serializable{
     private String lokasi;
 
     //
-    @ManyToMany(mappedBy = "listPoli", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-    private List<DokterModel> listDokter;
+    @OneToMany(mappedBy = "poli")
+    private List<JadwalModel> listDokter;
 
     
     //getter setter idPoli
@@ -67,11 +68,11 @@ public class PoliModel implements Serializable{
         this.lokasi = lokasi;
     }
 
-    public List<DokterModel> getListDokter(){
+    public List<JadwalModel> getListDokter(){
         return this.listDokter;
     }
 
-    public void setListDokter(List<DokterModel> listDokter){
+    public void setListDokter(List<JadwalModel> listDokter){
         this.listDokter = listDokter;
     }
 

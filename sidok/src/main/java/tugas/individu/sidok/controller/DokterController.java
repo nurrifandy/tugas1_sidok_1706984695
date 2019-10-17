@@ -117,6 +117,7 @@ public class DokterController{
         saveDokter.setTanggalLahir(tmpTgl);
         List<DokterModel> setDokter = new ArrayList<DokterModel>();
         setDokter.add(saveDokter);
+        System.out.println(saveDokter.getListSpesialisasi().get(0).getNamaSpesialisasi());
         if(dokter.getListSpesialisasi().get(0).getIdSpesialisasi() != null){
             saveDokter.setListSpesialisasi(dokter.getListSpesialisasi());
             for(SpesialisasiModel spesial  : dokter.getListSpesialisasi()){
@@ -134,7 +135,7 @@ public class DokterController{
         @RequestParam (value = "nikDokter") String nikDokter,
         Model model
     ){
-        List<DokterModel> dokter = dokterService.findDokterByNik(nikDokter);
+        DokterModel dokter = dokterService.getDokterByNik(nikDokter).orElse(null);
         model.addAttribute("dokter", dokter);
         return "display-detail-dokter";
     }
@@ -160,6 +161,12 @@ public class DokterController{
         dokterService.deleteDokter(dokter);
         model.addAttribute("dokter", dokter);
         return "delete-sukses";
+    }
+
+    @PostMapping(value = "/jadwal/tambah/{nipDokter}")
+    public String addJadwal(@PathVariable Long idDokter, Model model){
+        
+        return "addJadwal";
     }
 
 }
