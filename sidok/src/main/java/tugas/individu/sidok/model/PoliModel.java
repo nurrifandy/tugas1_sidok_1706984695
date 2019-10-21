@@ -37,7 +37,7 @@ public class PoliModel implements Serializable{
     private String lokasi;
 
     //
-    @OneToMany(mappedBy = "poli")
+    @OneToMany(mappedBy = "poli", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<JadwalModel> listDokter;
 
     

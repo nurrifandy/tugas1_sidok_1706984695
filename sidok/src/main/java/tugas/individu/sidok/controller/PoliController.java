@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import tugas.individu.sidok.model.DokterModel;
+import tugas.individu.sidok.model.JadwalModel;
 import tugas.individu.sidok.model.PoliModel;
 import tugas.individu.sidok.service.PoliService;
 
@@ -41,10 +44,11 @@ public class PoliController{
         return "create-poli-success";
     }
 
-
     @GetMapping(value = "/poli/dokter/{idPoli}")
-    public String viewDokterPoli(Model model){
-        return "viewDokterPoli";
+    public String displayDokterInPoli(@PathVariable Long idPoli, Model model){
+        PoliModel poli = poliService.getPoliById(idPoli).orElse(null);
+        List<JadwalModel> dokter = poli.getListDokter();
+        model.addAttribute("dokter", dokter);
+        return "display-dokter-in-poli";
     }
-
 }

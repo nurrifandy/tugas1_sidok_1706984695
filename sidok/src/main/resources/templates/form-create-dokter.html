@@ -6,58 +6,66 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tambah Dokter</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body class="h-100">
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <content>
-        <div class="container">
-        <div class="h1 m-3">Tambah Dokter</div>
+    <content class="m-3">
+        <div class="container border p-3 rounded shadow">
+        <div class="h1 mb-3 text-center">Tambah Dokter</div>
         <div>
             <form th:action="@{/dokter/tambah}" th:object="${dokter}" method="POST">
                 <div class="form-group row">
-                    <label for="inputNama" class="col-md-2 col-form-label">Nama</label>
+                    <label for="inputNama" class="col-md-2 col-form-label"><b>Nama</b></label>
                     <div class="col-md-10">
-                        <input th:field="${dokter.nama}" class="form-control-plaintext border rounded-pill" type="text" id="inputNama" name="nama" placeholder=" example : Nur Rifandy ">
+                        <input th:field="${dokter.nama}" class="form-control form-control-plaintext border rounded-pill" type="text" id="inputNama" name="nama" placeholder=" example : Nur Rifandy ">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputNIK" class="col-md-2 col-form-label">NIK</label>
+                    <label for="inputNIK" class="col-md-2 col-form-label"><b>NIK</b></label>
                     <div class="col-md-10">
-                        <input th:field="${dokter.nikDokter}" class="form-control-plaintext border rounded-pill" type="text" id="inputNIK" name="nikDokter" placeholder=" example : 288628xxxx ">
+                        <input th:field="${dokter.nikDokter}" class="form-control form-control-plaintext border rounded-pill" type="text" id="inputNIK" name="nikDokter" placeholder=" example : 288628xxxx ">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputTgl" class="col-md-2 col-form-label">Tanggal Lahir</label>
+                    <label for="inputTgl" class="col-md-2 col-form-label"><b>Tanggal Lahir</b></label>
                     <div class="col-md-10">
-                        <input th:field="${dokter.tanggalLahir}" class="form-control-plaintext border rounded-pill" type="date" id="inputTgl" name="tanggalLahir">
+                        <input th:field="${dokter.tanggalLahir}" class="form-control-plaintext form-control border rounded-pill" type="date" id="inputTgl" name="tanggalLahir">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputTmp" class="col-md-2 col-form-label">Tempat Lahir</label>
+                    <label for="inputTmp" class="col-md-2 col-form-label"><b>Tempat Lahir</b></label>
                     <div class="col-md-10">
-                        <input th:field="${dokter.tempatLahir}" class="form-control-plaintext border rounded-pill" type="text" id="inputTmp" name="tempatLahir" placeholder=" example : Situbondo ">
+                        <input th:field="${dokter.tempatLahir}" class="form-control form-control-plaintext border rounded-pill" type="text" id="inputTmp" name="tempatLahir" placeholder=" example : Situbondo ">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputJk" class="col-md-2 col-form-label">Jenis Kelamin</label>
-                    <select th:field="${dokter.jenisKelamin}" name="jenisKelamin" class="form-control col-md-10 rounded-pill">
+                    <label for="inputJk" class="col-md-2 col-form-label"><b>Jenis Kelamin</b></label>
+                    <div class="col-md-10">
+                    <select th:field="${dokter.jenisKelamin}" name="jenisKelamin" class="form-control rounded-pill">
                         <option value="True">Laki-Laki</option>
                         <option value="False">Perempuan</option>
                     </select>
+                    </div>
                 </div>
                 <div class="form-group row" th:each="spesialisasi, rowStat : *{listSpesialisasi}">
-                    <label for="inputSpesialisasi" class="col-md-2 col-form-label">Spesialisasi</label>
-                    <select name="idSpesialisasi" class="form-control col-md-8 rounded-pill" th:field="*{listSpesialisasi[__${rowStat.index}__].idSpesialisasi}">
+                    <label th:if="${rowStat.index} == 0" for="inputSpesialisasi" class="col-md-2 col-form-label"><b>Spesialisasi</b></label>
+                    <label th:unless="${rowStat.index} == 0" for="inputSpesialisasi" class="col-md-2 col-form-label"></label>
+                    <div class="col-md-8">
+                    <select name="idSpesialisasi" class="form-control rounded-pill" th:field="*{listSpesialisasi[__${rowStat.index}__].idSpesialisasi}">
                         <div>
                             <option th:value="null">choose....</option>
                             <option th:each="list : ${spesialisasiList}" th:value="${list.idSpesialisasi}" th:text="${list.namaSpesialisasi}"></option>
                         </div>
                     </select>
-                    <div class="col-md-2">
+                    </div>
+                    <div th:if="${rowStat.index} == ${#lists.size(dokter.listSpesialisasi)}-1" class="col-md-2">
                         <button class="btn btn-primary" type="submit" name="addSpesialisasi">Add Spesialisasi</button>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="save">Submit</button>
+                <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mt-2" name="save">Submit</button>
+            </div>
             </form>
         </div>
         </div>

@@ -3,6 +3,7 @@ package tugas.individu.sidok.service;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tugas.individu.sidok.model.DokterModel;
+import tugas.individu.sidok.model.SpesialisasiModel;
+import tugas.individu.sidok.model.JadwalModel;
 import tugas.individu.sidok.repository.DokterDb;
 
 @Service
@@ -45,7 +48,12 @@ public class DokterServiceImpl implements DokterService{
     public Optional<DokterModel> findDokterById(Long idDokter){
         return dokterDb.findById(idDokter);
     }
-
+    
+   
+    @Override
+    public List<DokterModel> getDokterBySpesialisasiAndJadwal(List<SpesialisasiModel> listSpesialisasi){
+        return dokterDb.findByListSpesialisasi(listSpesialisasi);
+    }
     @Override
     public void deleteDokter(DokterModel dokter){
         dokterDb.delete(dokter);

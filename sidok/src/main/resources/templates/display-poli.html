@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Display Poli</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
@@ -28,7 +29,7 @@
                         <tbody>
                             <tr th:each="poli : ${listPoli}">
                                 <th scope="row" th:text="${poli.idPoli}"></th>
-                                <th scope="row" th:text="${poli.namaPoli}"></th>
+                                <th scope="row"><a th:href="@{/poli/dokter/{idPoli} (idPoli=${poli.idPoli})}" th:text="${poli.namaPoli}"></a></th>
                                 <th scope="row" th:text="${poli.lokasi}"></th>
                                 <th scope="row"class="button-group">
                                     <button class="btn btn-dark">
@@ -42,7 +43,7 @@
                         </tbody>
                     </table>
                     <div>
-                        <button class="btn btn-dark"><a style="color:white; text-decoration: none;" th:href="@{/poli/tambah}">Tambah Poli</a></button>
+                        <button class="btn btn-primary"><i class='fas fa-plus' style="size: 12px;"></i><a style="color:white; text-decoration: none;" th:href="@{/poli/tambah}"> Tambah Poli</a></button>
                     </div>
                 </div>
             </div>

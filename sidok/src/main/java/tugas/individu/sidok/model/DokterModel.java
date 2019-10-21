@@ -69,7 +69,7 @@ public class DokterModel implements Serializable{
     @Column(name = "jenisKelamin", nullable = false)
     private Boolean jenisKelamin;
 
-    @OneToMany(mappedBy = "dokter")
+    @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     private List<JadwalModel> listPoli;
 
     @ManyToMany(cascade = CascadeType.MERGE)

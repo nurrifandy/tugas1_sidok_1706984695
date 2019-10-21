@@ -6,36 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jadwal Poli</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container ">
         <div class="text-center p-3 h2">Tambah Jadwal Jaga Poli Seorang Dokter</div>
         <div class="row d-flex justify-content-center">
-            <form th:action="@{/jadwal/tambah/{nipDokter}(nipDokter = ${dokter.nipDokter})}" th:object="${dokter}" method="POST">
+            <form th:action="@{/jadwal/tambah/{nipDokter}(nipDokter = ${dokter.nipDokter})}" method="POST">
                 <div class="form-group row">
-                    <label for="" class="col-md-2 col-form-label">Nama</label>
+                    <label for="" class="col-md-2 col-form-label"><b>Nama</b></label>
                     <div class="col-md-10">
                         <input class="form-control rounded-pill" type="text" id="" name="nama" th:field="${dokter.nama}" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPoli" class="col-md-2 col-form-label">Poli</label>
+                    <label for="inputPoli" class="col-md-2 col-form-label"><b>Poli</b></label>
                     <div class="col-md-10">
                     <select name="poli" class="form-control rounded-pill">
                         <div>
-                            <option th:value="null">choose....</option>
+                            <option th:value="null" disabled selected>choose....</option>
                             <option th:each="poli : ${poli}" id="inputPoli" th:value="${poli.idPoli}" th:text="${poli.namaPoli}"></option>
                         </div>
                     </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputHari" class="col-md-2 col-form-label">Hari</label>
+                    <label for="inputHari" class="col-md-2 col-form-label"><b>Hari</b></label>
                     <div class="col-md-10">
                     <select name="hari" class="form-control rounded-pill">
                         <div>
-                            <option th:value="null">choose....</option>
+                            <option th:value="null" disabled selected>choose....</option>
                             <option id="inputHari" th:value="senin">Senin</option>
                             <option id="inputHari" th:value="selasa">Selesa</option>
                             <option id="inputHari" th:value="rabu">Rabu</option>
@@ -51,10 +52,11 @@
             </form>
         </div>
         <div>
-            <div class="card">
+            <div class="card shadow m-2">
                 <div class="card-header bg-dark text-light">Daftar Poli</div>
                 <div class="card-body">
-                    <table class="table table-responsive">
+                    <div class="">
+                    <table class="text-center table table-responsive-md">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -62,14 +64,15 @@
                                 <th>Hari</th>
                             </tr>
                         </thead>
-                        <tbody th:each="list:${listPoli}">
+                        <tbody th:each="list, jadwalStatus:${jadwal}">
                             <tr>
-                                <th scope="row"></th>
-                                <th scope="row"></th>
-                                <th scope="row"></th>
+                                <td scope="row" th:text = "${jadwalStatus.count}"></td>
+                                <td scope="row" th:text = "${list.poli.namaPoli}"></td>
+                                <td scope="row" th:text = "${list.hari}"></td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

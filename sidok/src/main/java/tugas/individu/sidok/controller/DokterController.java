@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javassist.expr.NewArray;
 import tugas.individu.sidok.model.DokterModel;
+import tugas.individu.sidok.model.JadwalModel;
+import tugas.individu.sidok.model.PoliModel;
 import tugas.individu.sidok.model.SpesialisasiModel;
 import tugas.individu.sidok.repository.DokterDb;
 import tugas.individu.sidok.service.DokterService;
+import tugas.individu.sidok.service.JadwalService;
+import tugas.individu.sidok.service.PoliService;
 import tugas.individu.sidok.service.SpesialisasiService;
 
 @Controller
@@ -34,6 +38,12 @@ public class DokterController{
 
     @Autowired
     private SpesialisasiService spesialisasiService;
+
+    @Autowired
+    private PoliService poliService;
+
+    @Autowired
+    private JadwalService jadwalService;
 
     //Beranda Dokter
     @GetMapping(value = "/")
@@ -117,7 +127,6 @@ public class DokterController{
         saveDokter.setTanggalLahir(tmpTgl);
         List<DokterModel> setDokter = new ArrayList<DokterModel>();
         setDokter.add(saveDokter);
-        System.out.println(saveDokter.getListSpesialisasi().get(0).getNamaSpesialisasi());
         if(dokter.getListSpesialisasi().get(0).getIdSpesialisasi() != null){
             saveDokter.setListSpesialisasi(dokter.getListSpesialisasi());
             for(SpesialisasiModel spesial  : dokter.getListSpesialisasi()){
@@ -163,10 +172,84 @@ public class DokterController{
         return "delete-sukses";
     }
 
-    @PostMapping(value = "/jadwal/tambah/{nipDokter}")
-    public String addJadwal(@PathVariable Long idDokter, Model model){
-        
-        return "addJadwal";
+    @GetMapping(value="/cari")
+    public String landingPageForSearch(Model model){
+        List<PoliModel> poli = poliService.getListPoli();
+        List<SpesialisasiModel> spesialisasi = spesialisasiService.getSpesialisasiList();
+        Boolean isLanding = false;
+        model.addAttribute("isLanding", isLanding);
+        model.addAttribute("poli", poli);
+        model.addAttribute("spesialisasi", spesialisasi);
+        return "display-form-and-search";
     }
+
+    @GetMapping(value = "/cari", params = {"cari"})
+    public String findDokterFromSpesialisasiAndPoli(
+        @RequestParam(value="idSpesialisasi") Long idSpesialisasi,
+        @RequestParam(value="idPoli") Long idPoli,
+        Model model){
+            List<DokterModel> dokter = new ArrayList<DokterModel>();
+            
+            SpesialisasiModel spesialis = spesialisasiService.getSpesialisasiById(idSpesialisasi).orElse(null);
+            
+            List<DokterModel> dokterSpesialis = spesialis.getListDokter();
+
+            PoliModel poli = poliService.getPoliById(idPoli).orElse(null);
+            List<JadwalModel> dokterPoli = poli.getListDokter();
+            
+            for(DokterModel dokterS:dokterSpesialis){
+                for(JadwalModel jadwal: dokterPoli){
+                    if(dokterS.getIdDokter() == jadwal.getIdDokter()){
+                        dokter.add(dokterS);
+                    }   
+                }
+            }
+            Boolean isLanding = false;
+        model.addAttribute("isLanding", isLanding);
+            List<PoliModel> poliList = poliService.getListPoli();
+            List<SpesialisasiModel> spesialisasi = spesialisasiService.getSpesialisasiList();
+            model.addAttribute("dokter", dokter);
+            model.addAttribute("poli", poliList);
+            model.addAttribute("spesialisasi", spesialisasi);
+            return "display-form-and-search";
+        }
+
+        @GetMapping(value="/cari" , params = {"action"})
+        public String displayDokterInPoli(
+            @RequestParam Long idPoli,
+            Model model
+        ){
+            PoliModel poli = poliService.getPoliById(idPoli).orElse(null);
+            List<JadwalModel> dokterPoli = poli.getListDokter();
+            List<JadwalModel> tmp = dokterPoli;
+            int count=0;
+            int n = 0;
+            Long idDokter = Long.valueOf(0);
+
+            for(JadwalModel jadwal:dokterPoli){
+                for(JadwalModel hitung:tmp){
+                    if (jadwal.getIdDokter()==hitung.getIdDokter()){
+                        count++;
+                    }
+                    
+                }
+                if(count>n){
+                    n = count;
+                    idDokter = jadwal.getIdDokter();
+                }
+                count = 0;
+            }
+
+            DokterModel detailDokter = dokterService.findDokterById(idDokter).orElse(null);
+
+            List<PoliModel> poliList = poliService.getListPoli();
+            List<SpesialisasiModel> spesialisasi = spesialisasiService.getSpesialisasiList();
+            Boolean isLanding = true;
+        model.addAttribute("isLanding", isLanding);
+            model.addAttribute("detailDokter", detailDokter);
+            model.addAttribute("poli", poliList);
+            model.addAttribute("spesialisasi", spesialisasi);
+            return "display-form-and-search";
+        }
 
 }
