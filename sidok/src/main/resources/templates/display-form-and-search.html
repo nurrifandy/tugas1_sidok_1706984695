@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 <div class="d-flex justify-content-end mb-3">
-                        <button class="btn btn-primary" type="submit" name="cari">Submit</button>
+                        <button class="btn btn-primary" type="submit" name="search">Submit</button>
                 </div>
                 </div>
             </form>
@@ -66,17 +66,24 @@
                                     <td th:text="${list.nama}"></td>
                                     <td th:text="${list.nipDokter}"></td>
                                     <td th:text="${list.nikDokter}"></td>
-                                    <td th:text="${list.jenisKelamin}"></td>
-                                    <th th:each="spesialisasi:${list.listSpesialisasi}">
-                                        <div th:text="${spesialisasi.namaSpesialisasi}"></div>
-                                    </th>
+
+                                    <td th:if="${list.jenisKelamin}" th:text="laki-laki"></td>
+                                    <td th:unless="${list.jenisKelamin}" th:text="perempuan"></td>
+                                    <td>
+                                        <div th:each="spesialisasi:${list.listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                        
+                        <button>
+                            <a href="">terbanyak</a>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--
         <div>
             <div class="h4 pb-4">Cari Dokter yang Paling Banyak Bertugas di Suatu Poli</div>
             <div class="row">
@@ -116,6 +123,8 @@
             </div>
         </div>
     </div>
+    -->
     </div>
+    
 </body>
 </html>

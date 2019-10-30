@@ -12,4 +12,8 @@ public interface PoliService{
     Optional<PoliModel> getPoliById(Long idPoli);
     
     List<PoliModel> getListPoli();
+
+    Optional<PoliModel> updateDataPoli(PoliModel poli);
+
+    void deletePoli(PoliModel poli);
 }

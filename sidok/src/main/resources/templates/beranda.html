@@ -30,8 +30,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="dokter : ${listDokter}">
-                                        <td scope="row" th:text="${dokter.idDokter}"></td>
+                                    <tr th:each="dokter, rowStat : ${listDokter}">
+                                        <td scope="row" th:text="${rowStat.index} + 1"></td>
                                         <td scope="row">
                                             <a th:href="@{/dokter} + '?nikDokter=' + ${dokter.nikDokter}" th:text="${dokter.nama}"></a>
                                         </td>
@@ -45,18 +45,20 @@
                                         </div>
                                         <td>
                                             <div th:if="${dokter.listSpesialisasi} != null" th:each="spesialisasi : ${dokter.listSpesialisasi}">
-                                                <div scope="row" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                                <ul>
+                                                    <li scope="row" th:text="${spesialisasi.namaSpesialisasi}"></li>
+                                                </ul>
                                             </div>
                                             <div th:if="${#lists.isEmpty(dokter.listSpesialisasi)}">-</div>
                                         </td>
                                         <td scope="row" class="btn-group">
-                                            <button class="btn btn-primary rounded mr-2">
+                                            <button class="btn btn-primary rounded mr-2 my-auto">
                                                     <i class='fas fa-plus' style="font-size: 12px;"></i><a th:href="@{/jadwal/tambah/{nipDokter} (nipDokter = ${dokter.nipDokter})}" style="text-decoration: none;" class="text-light" th:text="' jadwal'"></a>
                                             </button>
-                                            <button class="btn btn-dark rounded mr-2">
+                                            <button class="btn btn-dark rounded mr-2 my-auto">
                                                 <a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">ubah</a>
                                             </button>
-                                            <button class="btn btn-danger rounded">
+                                            <button class="btn btn-danger rounded my-auto">
                                                 <a th:href="@{/dokter/delete/} + ${dokter.idDokter}" style="text-decoration: none;" class="text-light">hapus</a>
                                             </button>
                                         </td>

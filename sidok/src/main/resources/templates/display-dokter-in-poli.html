@@ -11,10 +11,10 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container text-center">
-        <div class="h4 p-2">Sistem Informasi Dokter</div>
+        <div class="h4 m-4">Sistem Informasi Dokter</div>
         <div>
             <div class="card shadow">
-                <div class="card-header text-light" th:text="'Daftar Dokter yang Bertugas di'"></div>
+                <div class="card-header text-light" th:text="'Daftar Dokter yang Bertugas di ' + ${poli.namaPoli}"></div>
                 <div class="card-body">
                     <table class="table table-responsive-sm">
                         <thead>
@@ -27,9 +27,9 @@
                         <tbody th:each="dokterPoli, statusDokter:${dokter}">
                             <tr>
                                 <td th:text="${statusDokter.count}"></td>
-                                <td th:text="${dokterPoli.dokter.nama}"></td>
+                                <td th:text="${dokterPoli.nama}"></td>
                                 <td >
-                                    <div th:each="spesialisasi: ${dokterPoli.dokter.listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                    <div th:each="spesialisasi: ${dokterPoli.listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"></div>
                                 </td>
                             </tr>
                         </tbody>

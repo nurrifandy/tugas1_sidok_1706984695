@@ -21,17 +21,20 @@
                 <div>
                     <div th:if="${dokter.jenisKelamin}" th:text="'Jenis Kelamin : Laki-laki'"></div>
                     <div th:unless="${dokter.jenisKelamin}" th:text="'Jenis Kelamin : Perempuan'"></div>
-                
+                </div>
                 <div th:text="'Spesialisasi '">
                 </div>
                 <ul>
                     <li th:each="list : ${dokter.listSpesialisasi}" th:text="${list.namaSpesialisasi}"></li>
                 </ul>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-dark m-1"><a th:href="@{#}" style="text-decoration: none;color: white;">Ubah</a></button>
-                    <button class="btn btn-danger m-1"><a th:href="@{#}" style="text-decoration: none;color: white">hapus</a></button>
+                    <button class="btn btn-dark m-1"><a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;color: white;">Ubah</a></button>
+                    <button class="btn btn-danger m-1"><a th:href="@{/dokter/delete/} + ${dokter.idDokter}" style="text-decoration: none;color: white">hapus</a></button>
                 </div>
             </div>
+            <button class="btn btn-primary p-2 mt-3">
+                <a th:href="@{/}" style="text-decoration: none; color: white    ;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
+            </button>
         </div>
     </content>
 </body>

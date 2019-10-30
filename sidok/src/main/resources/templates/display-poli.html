@@ -28,17 +28,17 @@
                         </thead>
                         <tbody>
                             <tr th:each="poli : ${listPoli}">
-                                <th scope="row" th:text="${poli.idPoli}"></th>
-                                <th scope="row"><a th:href="@{/poli/dokter/{idPoli} (idPoli=${poli.idPoli})}" th:text="${poli.namaPoli}"></a></th>
-                                <th scope="row" th:text="${poli.lokasi}"></th>
-                                <th scope="row"class="button-group">
+                                <td scope="row" th:text="${poli.idPoli}"></td>
+                                <td scope="row"><a th:href="@{/poli/dokter/{idPoli} (idPoli=${poli.idPoli})}" th:text="${poli.namaPoli}"></a></td>
+                                <td scope="row" th:text="${poli.lokasi}"></td>
+                                <td scope="row"class="button-group">
                                     <button class="btn btn-dark">
-                                        <a th:href="@{#}" style="text-decoration: none; color: white;">ubah</a>
+                                        <a th:href="@{/poli/update/{idPoli}(idPoli=${poli.idPoli})}" style="text-decoration: none; color: white;">ubah</a>
                                     </button>
                                     <button class="btn btn-danger">
-                                        <a th:href="@{#}" style="text-decoration: none; color: white;">hapus</a>
+                                        <a th:href="@{/poli/delete/{idPoli}(idPoli=${poli.idPoli})}" style="text-decoration: none; color: white;">hapus</a>
                                     </button>
-                                </th>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -20,34 +20,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-/** 
-class JadwalJagaDokter implements Serializable{
-    
-    private Long dokterId;
-    
-    private Long poliId;
-
-    private String hari;
-
-    public int hashCode(){
-        Long id = poliId + dokterId; 
-        return id.intValue();
-    }
-
-    public boolean equals(Object object){
-        if(object instanceof JadwalJagaDokter){
-            JadwalJagaDokter otherId = (JadwalJagaDokter) object;
-            return (otherId.dokterId == this.dokterId) && (otherId.poliId== this.poliId) && (otherId.hari.equals(this.hari)); 
-        }
-        return false;
-    }
-}
-*/
-
 
 @Entity
 @Table(name = "jadwalBertugas")
-//@IdClass(JadwalJagaDokter.class)
+
 public class JadwalModel implements Serializable{
 
     @Id
