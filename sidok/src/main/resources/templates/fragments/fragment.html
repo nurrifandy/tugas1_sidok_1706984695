@@ -46,10 +46,19 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/poli}">Poli</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/cari}">Cari</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Cari
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" th:href="@{/cari}">Cari</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" th:href="@{/cari/tugas-terbanyak}">Tugas terbanyak</a>
               </li>
-            
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/spesialisasi}">Spesialisasi</a>
+          </li>
           </ul>
         
       </div>

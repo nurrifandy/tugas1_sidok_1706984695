@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+<body class="w-100">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 pt-4">
+                <div class="card shadow">
+                    <div class="card-header h3 text-center text-light">404 Not Found!</div>
+                    <div class="card-body p">Path yang anda cari tidak dapat ditemukan. <br> Silahkan gunakan url path yang benar.</div>
+                </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</body>
+</html>

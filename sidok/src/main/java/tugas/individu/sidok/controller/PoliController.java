@@ -45,8 +45,7 @@ public class PoliController{
     @PostMapping(value = "/poli/tambah")
     public String addPoli(@ModelAttribute PoliModel poli, Model model){
         poliService.addPoli(poli);
-        model.addAttribute("poli", poli);
-        return "create-poli-success";
+        return "redirect:/poli/view/" + poli.getIdPoli();
     }
 
     @GetMapping(value = "/poli/dokter/{idPoli}")
@@ -89,5 +88,12 @@ public class PoliController{
         poliService.deletePoli(poli);
         model.addAttribute("poli", poli);
         return "delete-poli-sukses";
+    }
+
+    @GetMapping(value = "/poli/view/{idPoli}")
+    public String viewPoli(@PathVariable Long idPoli, Model model){
+        PoliModel poli = poliService.getPoliById(idPoli).orElse(null);
+        model.addAttribute("poli", poli);
+        return "create-poli-success";
     }
 }

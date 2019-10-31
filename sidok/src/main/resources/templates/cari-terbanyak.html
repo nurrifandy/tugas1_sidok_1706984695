@@ -11,7 +11,7 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container text-center">
-        <div class="h4 p-4">Cari Dokter yang Paling Banyak Bertugas di Suatu Poli</div>
+        <div class="h3 p-4"><i>Cari Dokter yang Paling Banyak Bertugas di Suatu Poli</i></div>
         <div>
             <div class="row">
                 <div class="col-md-4"></div>
@@ -38,7 +38,7 @@
         <div th:if="${isLanding}" class="m-3 row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header text-light">Detail Dokter</div>
                 <div class="card-body text-left">
                         <div th:text="'Nama : ' + ${detailDokter.nama}"></div>

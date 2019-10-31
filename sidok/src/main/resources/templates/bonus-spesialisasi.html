@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container p-3 mt-2 mb-2 text-center">
+        <div class="card shadow">
+            <div class="card-header text-light">Daftar Spesialisasi</div>
+            <div class="card-body">
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Spesialisasi</th>
+                            <th>Jumlah Dokter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="spesialisasi, rowStat:${listSpesialisasi}">
+                            <td th:text="${rowStat.count}"></td>
+                            <td th:text="${spesialisasi.namaSpesialisasi}"></td>
+                            <td th:text="${spesialisasi.listDokter.size()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

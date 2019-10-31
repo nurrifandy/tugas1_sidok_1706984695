@@ -6,13 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Delete Success</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <content class="container">
-        <div class="container">
-            <div class="h2" th:text="'Dokter ' + ${dokter.nama} + ' berhasil dihapus.'"></div>
-            <a th:href="@{/}" style="text-decoration: none;">Kembali ke Home</a>
+    <content class="">
+        <div class="row p-4">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header h5 text-center" style="color: aliceblue;">Delete Success!</div>
+                    <div class="card-body">
+                            <div class="h6 p-3" th:text="'Dokter ' + ${dokter.nama} + ' telah berhasil dihapus.'"></div>
+                            <button class="btn btn-primary">
+                                    <a th:href="@{/}" style="text-decoration: none;">Kembali ke Home</a>
+                            </button>
+                            
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
         </div>
     </content>
 </body>

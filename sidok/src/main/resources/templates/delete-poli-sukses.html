@@ -12,10 +12,23 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <content>
         <div class="container">
-            <div class="h3 mt-2 mb-2" th:text="'Delete poli Sukses'"></div>
-            <button class="btn btn-primary">
-                <a th:href="@{/}" style="text-decoration: none; color: white;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
-            </button>
+            <div>
+                <div class="row p-4">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <div class="card shadow">
+                            <div class="card-header text-center text-light h5">Delete Poli Success!</div>
+                            <div class="card-body h6">
+                                Poli berhasil di delete.
+                            </div>
+                            <button class="btn btn-primary">
+                                    <a th:href="@{/}" style="text-decoration: none; color: white;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
+                                </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
         </div>
     </content>
 </body>

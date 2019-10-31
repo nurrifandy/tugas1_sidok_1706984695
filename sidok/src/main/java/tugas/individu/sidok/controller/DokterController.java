@@ -259,4 +259,11 @@ public class DokterController{
             return "cari-terbanyak";
         }
 
+        @GetMapping(value = "/spesialisasi")
+        public String displayBonus(Model model){
+            List<SpesialisasiModel> listSpesialisasi = spesialisasiService.getSpesialisasiList();
+            model.addAttribute("listSpesialisasi", listSpesialisasi);
+            return "bonus-spesialisasi";
+        }
+
 }

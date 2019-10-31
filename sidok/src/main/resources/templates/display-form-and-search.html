@@ -11,7 +11,7 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container text-center">
-        <div class="p-2 h4">Cari Dokter Berdasarkan Spesialisasi dan Poli Tertentu</div>
+        <div class="p-2 h3 mt-2"><i>Cari Dokter Berdasarkan Spesialisasi dan Poli Tertentu</i></div>
         <div>
             <form class="row" th:action="@{/cari}" method="GET">
                 <div class="col-md-4"></div>
@@ -45,7 +45,7 @@
             </form>
         </div>
         <div>
-            <div class="card m-4">
+            <div class="card m-4 shadow">
                 <div class="card-header text-light">Daftar Dokter</div>
                 <div class="card-body">
                     <div>
@@ -76,9 +76,11 @@
                             </tbody>
                         </table>
                         
-                        <button>
-                            <a href="">terbanyak</a>
+                        <!--
+                        <button class="btn btn-primary">
+                            <a th:href="@{/cari/tugas-terbanyak}" style="text-decoration:none; color:white">Cari Dokter Terbanyak</a>
                         </button>
+                        -->
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container ">
-        <div class="text-center p-3 h2">Tambah Jadwal Jaga Poli Seorang Dokter</div>
+        <div class="text-center p-3 h3"><i>Tambah Jadwal Jaga Poli Seorang Dokter</i></div>
         <div class="row d-flex justify-content-center">
             <form th:action="@{/jadwal/tambah/{nipDokter}(nipDokter = ${dokter.nipDokter})}" method="POST">
                 <div class="form-group row">
