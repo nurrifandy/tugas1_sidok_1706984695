@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container text-center">
+        <div class="p-2 h3 mt-2"><i>Cari Dokter Berdasarkan Spesialisasi dan Poli Tertentu</i></div>
+        <div>
+            <form class="row" th:action="@{/cari}" method="GET">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                <div class="form-group row">
+                        <label for="inputSpesialisasi" class="col-md-4 col-form-label"><b>Spesialisasi</b></label>
+                        <div class="col-md-8">
+                        <select name="idSpesialisasi" class="form-control rounded-pill">
+                            <div>
+                                <option th:value="null" disabled selected>choose....</option>
+                                <option th:each="spesialisasi : ${spesialisasi}" id="inputSpesialisasi" th:value="${spesialisasi.idSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"></option>
+                            </div>
+                        </select>
+                        </div>
+                    </div>
+                <div class="form-group row">
+                        <label for="inputPoli" class="col-md-4 col-form-label"><b>Poli</b></label>
+                        <div class="col-md-8">
+                        <select name="idPoli" class="form-control rounded-pill">
+                            <div>
+                                <option th:value="null" disabled selected>choose....</option>
+                                <option th:each="poli : ${poli}" id="inputPoli" th:value="${poli.idPoli}" th:text="${poli.namaPoli}"></option>
+                            </div>
+                        </select>
+                        </div>
+                    </div>
+                <div class="d-flex justify-content-end mb-3">
+                        <button class="btn btn-primary" type="submit" name="search">Submit</button>
+                </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <div class="card m-4 shadow">
+                <div class="card-header text-light">Daftar Dokter</div>
+                <div class="card-body">
+                    <div>
+                        <table class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIP</th>
+                                    <th>NIK</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Spesialisasi</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="list, statusList:${dokter}">
+                                <tr>
+                                    <td th:text="${statusList.count}"></td>
+                                    <td th:text="${list.nama}"></td>
+                                    <td th:text="${list.nipDokter}"></td>
+                                    <td th:text="${list.nikDokter}"></td>
+
+                                    <td th:if="${list.jenisKelamin}" th:text="laki-laki"></td>
+                                    <td th:unless="${list.jenisKelamin}" th:text="perempuan"></td>
+                                    <td>
+                                        <div th:each="spesialisasi:${list.listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!--
+                        <button class="btn btn-primary">
+                            <a th:href="@{/cari/tugas-terbanyak}" style="text-decoration:none; color:white">Cari Dokter Terbanyak</a>
+                        </button>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+        <div>
+            <div class="h4 pb-4">Cari Dokter yang Paling Banyak Bertugas di Suatu Poli</div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                <form th:action="@{/cari?idPoli={idPoli}}" method="get">
+                    <div class="form-group row">
+                            <label for="inputPoli" class="col-md-2 col-form-label"><b>Poli</b></label>
+                            <div class="col-md-10">
+                            <select name="idPoli" class="form-control rounded-pill">
+                                <div>
+                                    <option th:value="null" disabled selected>choose....</option>
+                                    <option th:each="poli : ${poli}" id="inputPoli" th:value="${poli.idPoli}" th:text="${poli.namaPoli}"></option>
+                                </div>
+                            </select>
+                            </div>
+                        </div>
+                    <button type="submit" class="btn btn-primary" name="action">Submit</button>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div th:if="${isLanding}" class="m-3 row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-light">Detail Dokter</div>
+                <div class="card-body text-left">
+                        <div th:text="'Nama : ' + ${detailDokter.nama}"></div>
+                        <div th:text="'NIP : ' + ${detailDokter.nipDokter}"></div>
+                        <div th:text="'NIK : ' + ${detailDokter.nikDokter}"></div>
+                        <div th:text="'Tempat Lahir : ' + ${detailDokter.tempatLahir}"></div>
+                        <div th:text="'Tanggal Lahir : ' + ${detailDokter.tanggalLahir}"></div>
+                        <div th:text="'Jenis Kelamin : ' + ${detailDokter.nama}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+    </div>
+    
+</body>
+</html>

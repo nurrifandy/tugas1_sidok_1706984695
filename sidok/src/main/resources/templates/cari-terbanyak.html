@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cari Dokter Terbanyak</title>
+    <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container text-center">
+        <div class="h3 p-4"><i>Cari Dokter yang Paling Banyak Bertugas di Suatu Poli</i></div>
+        <div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                <form th:action="@{/cari/tugas-terbanyak?idPoli={idPoli}}" method="get">
+                    <div class="form-group row">
+                            <label for="inputPoli" class="col-md-2 col-form-label"><b>Poli</b></label>
+                            <div class="col-md-10">
+                            <select name="idPoli" class="form-control rounded-pill">
+                                <div>
+                                    <option th:value="null" disabled selected>choose....</option>
+                                    <option th:each="poli : ${poli}" id="inputPoli" th:value="${poli.idPoli}" th:text="${poli.namaPoli}"></option>
+                                </div>
+                            </select>
+                            </div>
+                        </div>
+                    <button type="submit" class="btn btn-primary" name="search">Submit</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div th:if="${isLanding}" class="m-3 row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header text-light">Detail Dokter</div>
+                <div class="card-body text-left">
+                        <div th:text="'Nama : ' + ${detailDokter.nama}"></div>
+                        <div th:text="'NIP : ' + ${detailDokter.nipDokter}"></div>
+                        <div th:text="'NIK : ' + ${detailDokter.nikDokter}"></div>
+                        <div th:text="'Tempat Lahir : ' + ${detailDokter.tempatLahir}"></div>
+                        <div th:text="'Tanggal Lahir : ' + ${detailDokter.tanggalLahir}"></div>
+                        <div th:if="${detailDokter.jenisKelamin}" th:text="'Jenis Kelamin : laki-laki'"></div>
+                        <div th:unless="${detailDokter.jenisKelamin}" th:text="'Jenis Kelamin : perempuan'"></div>
+                        <div th:text="'Spesialisasi :'">
+                        </div>
+                            <ul>
+                                <li th:each="list : ${detailDokter.listSpesialisasi}" th:text="${list.namaSpesialisasi}"></li>
+                            </ul>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -6,65 +6,99 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Beranda</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
+    
 </head>
 <body class="h-100 text-center">
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <content>
-        <div class="h2 m-5">Sistem Informasi Dokter</div>
-        <div class="container">
-            <div class="card">
-                <div class="card-header bg-dark text-light">Daftar Dokter</div>
+        <div class="h3 m-3 mt-4"><i>Sistem Informasi Dokter</i></div>
+        <div class="container p-2 mb-3">
+            <div class="card shadow bg-white rounded">
+                <div class="card-header text-light h5" style="">Daftar Dokter</div>
                 <div class="card-body">
-                        <table class="table">
+                        <table class="table table-responsive-sm">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">NIP</th>
-                                        <th scope="col">NIK</th>
-                                        <th scope="col">Jenis Kelamin</th>
-                                        <th scope="col">Spesialisasi</th>
-                                        <th scope="col"></th>
+                                        <th class="align-middle" scope="col">No</th>
+                                        <th class="align-middle" scope="col">Nama</th>
+                                        <th class="align-middle" scope="col">NIP</th>
+                                        <th class="align-middle" scope="col">NIK</th>
+                                        <th class="align-middle" scope="col">Jenis Kelamin</th>
+                                        <th class="align-middle"scope="col">Spesialisasi</th>
+                                        <th  class="align-middle"scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="dokter : ${listDokter}">
-                                        <th scope="row" th:text="${dokter.idDokter}"></th>
-                                        <th scope="row">
-                                            <a th:href="@{/dokter} + '?nikDokter=' + ${dokter.nikDokter}" th:text="${dokter.nama}"></a></th>
-                                        <th scope="row" th:text="${dokter.nipDokter}"></th>
-                                        <th scope="row" th:text="${dokter.nikDokter}"></th>
+                                    <tr th:each="dokter, rowStat : ${listDokter}">
+                                        <td scope="row" th:text="${rowStat.index} + 1"></td>
+                                        <td scope="row">
+                                            <a th:href="@{/dokter} + '?nikDokter=' + ${dokter.nikDokter}" th:text="${dokter.nama}"></a>
+                                        </td>
+                                        <td scope="row" th:text="${dokter.nipDokter}"></td>
+                                        <td scope="row" th:text="${dokter.nikDokter}"></td>
                                         <div th:if=${dokter.jenisKelamin}>
-                                            <th scope="row" th:text="Laki-laki"></th>
+                                            <td scope="row" th:text="Laki-laki"></td>
                                         </div>
                                         <div th:unless=${dokter.jenisKelamin}>
-                                            <th scope="row" th:text="Perempuan"></th>
+                                            <td scope="row" th:text="Perempuan"></td>
                                         </div>
-                                        <th>
+                                        <td>
                                             <div th:if="${dokter.listSpesialisasi} != null" th:each="spesialisasi : ${dokter.listSpesialisasi}">
-                                                <div scope="row" th:text="${spesialisasi.namaSpesialisasi}"></div>
+                                                <ul>
+                                                    <li class="text-left" scope="row" th:text="${spesialisasi.namaSpesialisasi}"></li>
+                                                </ul>
                                             </div>
                                             <div th:if="${#lists.isEmpty(dokter.listSpesialisasi)}">-</div>
-                                        </th>
-                                        <th scope="row" class="btn-group">
-                                            <button class="btn btn-primary rounded mr-2">
-                                                <a th:href="@{#}" style="text-decoration: none;" class="text-light">tambah jadwal</a>
+                                        </td>
+                                        <td scope="row" class="btn-group">
+                                            <button class="btn btn-primary rounded mr-1 my-auto">
+                                                    <a th:href="@{/jadwal/tambah/{nipDokter} (nipDokter = ${dokter.nipDokter})}" style="text-decoration: none;" class="text-light"><i class='fas fa-plus' style="font-size: 12px;"></i> jadwal</a>
                                             </button>
-                                            <button class="btn btn-dark rounded mr-2">
+                                            <button class="btn btn-dark rounded mr-1 my-auto">
                                                 <a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">ubah</a>
                                             </button>
-                                            <button class="btn btn-danger rounded">
-                                                <a th:href="@{/dokter/delete/} + ${dokter.idDokter}" style="text-decoration: none;" class="text-light">hapus</a>
+
+                                            <button class="btn btn-danger rounded my-auto" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                                                    <a th:href="@{/dokter/delete/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">hapus</a>
                                             </button>
-                                        </th>
+                                            <!--
+                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header text-center" style="background-color: #009688;">
+                                                          <h5 class="modal-title" id="exampleModalLongTitle" style="color: aliceblue;">Konfirmasi</h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          Apakah anda yakin ingin menghapus data ini?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                          <button type="button" class="btn btn-danger text-light">
+                                                                <a th:href="@{/dokter/delete{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;" class="text-light">hapus</a>
+                                                            </button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  -->
+                                        </td>
+                                        <!-- Modal -->
+                                      
                                     </tr>
                                 </tbody>
                             </table>
                     <div>
-                        <button class="btn btn-dark"><a style="color:white; text-decoration: none;" th:href="@{/dokter/tambah}">Tambah Dokter</a></button>
+                        <button class="btn btn-primary"><i class='fas fa-plus' style="size: 12px;"></i><a style="color:white; text-decoration: none;" th:href="@{/dokter/tambah}" th:text="' Tambah Dokter'"></a></button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div>
         </div>
     </content> 
 </body>

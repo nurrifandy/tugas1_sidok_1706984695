@@ -1,0 +1,28 @@
+.btn-primary{
+    background-color: #009688;
+    border: none;
+}
+.btn-primary:hover, .btn-primary:active{
+    background-color: #00796b !important;
+}
+
+.navbar-light{
+    background-color: #e0f2f1 !important;
+    box-shadow: 0px 1px 10px #cac4c4;
+}
+
+.card-header{
+    background-color: #00695c !important;
+}
+
+li a{
+    font-size: 14px;
+}
+
+.nav-link:hover{
+    color: #00695c;
+}
+
+td{
+    font-size: 14px;
+}

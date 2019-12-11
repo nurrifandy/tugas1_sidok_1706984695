@@ -6,14 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dokter Sukses</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <content class="container">
-        <div class="h2" th:text="'Dokter ' + ${dokter.nama} + ' dengan NIP ' + ${dokter.nipDokter} + ' berhasil ditambahkan'"></div>
-        <button class="btn btn-primary">
-            <a th:href="@{/}" style="text-decoration: none; color: white    ;">Kembali ke Home</a>
-        </button>
+    <content>
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col p-3">
+                    <div class="card">
+                        <div class="card-header text-light text-center">Sukses</div>
+                        <div class="card-body alert alert-success">
+                                <div class="p5 p-2" th:text="'Dokter ' + ${dokter.nama} + ' dengan NIP ' + ${dokter.nipDokter} + ' berhasil ditambahkan'"></div>
+                                <button class="btn btn-primary">
+                                    <a th:href="@{/}" style="text-decoration: none; color: white    ;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
     </content>
 </body>
 </html>

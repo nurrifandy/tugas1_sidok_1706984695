@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.WhereJoinTable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import tugas.individu.sidok.model.SpesialisasiModel;
@@ -44,7 +46,7 @@ public class DokterModel implements Serializable{
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "nipDokter", nullable = false)
+    @Column(name = "nipDokter", nullable = false, unique = true)
     private String nipDokter;
     
     @NotNull
@@ -67,15 +69,8 @@ public class DokterModel implements Serializable{
     @Column(name = "jenisKelamin", nullable = false)
     private Boolean jenisKelamin;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(
-        name = "poliDokter",
-        joinColumns = @JoinColumn(name = "idDokter"),
-        inverseJoinColumns = @JoinColumn(name = "idPoli")
-    )
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private List<PoliModel> listPoli;
+    @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    private List<JadwalModel> listPoli;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
@@ -151,11 +146,11 @@ public class DokterModel implements Serializable{
     }
 
     // setter getter poliModel
-    public List<PoliModel> getListPoli(){
+    public List<JadwalModel> getListPoli(){
         return this.listPoli;
     }
 
-    public void seLlistPoli(List<PoliModel> listPoli){
+    public void seLlistPoli(List<JadwalModel> listPoli){
         this.listPoli = listPoli;
     }
 

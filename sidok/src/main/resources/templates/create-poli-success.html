@@ -6,12 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create Poli Success</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div>
-        <div class="h2">Berhasil disimpan</div>
-        <a th:href="@{/}" style="text-decoration: none;">Kembali ke Home</a>
+        <div class="row p-4">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-header h5" style="color: aliceblue;">Detail Poli</div>
+                    <div class="card-body">
+                            <div th:text="'Nama : ' + ${poli.namaPoli}"></div>
+                            <div th:text="'Lokasi : ' + ${poli.lokasi}"></div>
+                            <div th:text="'Dokter '">
+                                </div>
+                                <ul>
+                                    <li th:each="list : ${poli.listDokter}" th:text="${list.nama}"></li>
+                                </ul>
+                    </div>
+                    <div class="alert alert-success p-3 ml-5 mr-5" role="alert">
+                       Poli berhasil ditambahkan!
+                    </div>
+
+                    <button class="btn btn-primary">
+                            <a th:href="@{/}" style="text-decoration: none;" class="text-light"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        
     </div>
+
+    
+        
+    
 </body>
 </html>

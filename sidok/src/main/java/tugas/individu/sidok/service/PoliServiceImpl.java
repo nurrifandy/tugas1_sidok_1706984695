@@ -1,6 +1,7 @@
 package tugas.individu.sidok.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,28 @@ public class PoliServiceImpl implements PoliService{
     @Override
     public void addPoli(PoliModel poli){
         poliDb.save(poli);
+    }
+
+    @Override
+    public Optional<PoliModel> getPoliById(Long idPoli){
+        return poliDb.findById(idPoli);
+    }
+
+    @Override
+    public Optional<PoliModel> updateDataPoli(PoliModel poli){
+        PoliModel currPoli = poliDb.findById(poli.getIdPoli()).orElse(null);
+        try{
+            currPoli.setNamaPoli(poli.getNamaPoli());
+            currPoli.setLokasi(poli.getLokasi());
+            poliDb.save(currPoli);
+            return Optional.of(currPoli);
+        }catch (NullPointerException nullException){
+            return null;
+        }
+    }
+
+    @Override
+    public void deletePoli(PoliModel poli){
+        poliDb.delete(poli);
     }
 }

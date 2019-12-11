@@ -11,17 +11,16 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <content class="">
-        <div class="row p-4">
+        <div class="row">
             <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="card shadow">
-                    <div class="card-header h5 text-center" style="color: aliceblue;">Delete Success!</div>
+            <div class="col-lg-6 p-4">
+                <div class="card">
+                    <div class="card-header h5" style="color: aliceblue;">Update Sukses!</div>
                     <div class="card-body">
-                            <div class="h6 p-3" th:text="'Dokter ' + ${dokter.nama} + ' telah berhasil dihapus.'"></div>
+                            <div class="h6 p-2" th:text="'Poli dengan nama ' + ${poli.namaPoli} + ' berhasil di update.'"></div>
                             <button class="btn btn-primary">
-                                    <a th:href="@{/}" style="text-decoration: none;">Kembali ke Home</a>
+                                <a th:href="@{/}" style="text-decoration: none; color: white    ;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
                             </button>
-                            
                     </div>
                 </div>
             </div>

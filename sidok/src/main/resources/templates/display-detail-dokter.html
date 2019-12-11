@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Detail Dokter</title>
     <object th:include="fragments/fragment :: getBootstrap" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css-js" th:remove="tag"></object>
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <content class="p-3 d-flex justify-content-center">
-        <div class="card" style="width: 20rem;">
-            <div class="card-header h4">Detail Dokter</div>
-            <div class="card-body" th:each="dokter:${dokter}">
+        <div class="shadow card" style="width: 20rem;">
+            <div class="card-header h4 text-light">Detail Dokter</div>
+            <div class="card-body">
                 <div th:text="'Nama : ' + ${dokter.nama}"></div>
                 <div th:text="'NIP : ' + ${dokter.nipDokter}"></div>
                 <div th:text="'NIK : ' + ${dokter.nikDokter}"></div>
                 <div th:text="'Tempat Lahir : ' + ${dokter.tempatLahir}"></div>
-                <div th:if=${dokter.jenisKelamin}>
-                    <div th:text="'Jenis Kelamin : Laki-laki'"></div>
-                <div th:unless=${dokter.jenisKelamin}>
-                    <div th:text="'Jenis Kelamin : Perempuan'"></div>
+                <div>
+                    <div th:if="${dokter.jenisKelamin}" th:text="'Jenis Kelamin : Laki-laki'"></div>
+                    <div th:unless="${dokter.jenisKelamin}" th:text="'Jenis Kelamin : Perempuan'"></div>
                 </div>
                 <div th:text="'Spesialisasi '">
                 </div>
@@ -28,10 +28,13 @@
                     <li th:each="list : ${dokter.listSpesialisasi}" th:text="${list.namaSpesialisasi}"></li>
                 </ul>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-dark m-1"><a th:href="@{#}" style="text-decoration: none;color: white;">Ubah</a></button>
-                    <button class="btn btn-danger m-1"><a th:href="@{#}" style="text-decoration: none;color: white">hapus</a></button>
+                    <button class="btn btn-dark m-1"><a th:href="@{/dokter/update/{idDokter}(idDokter = ${dokter.idDokter})}" style="text-decoration: none;color: white;">Ubah</a></button>
+                    <button class="btn btn-danger m-1"><a th:href="@{/dokter/delete/} + ${dokter.idDokter}" style="text-decoration: none;color: white">hapus</a></button>
                 </div>
             </div>
+            <button class="btn btn-primary p-2 mt-3">
+                <a th:href="@{/}" style="text-decoration: none; color: white    ;"><i class='fas fa-angle-double-left'></i>Kembali ke Home</a>
+            </button>
         </div>
     </content>
 </body>
